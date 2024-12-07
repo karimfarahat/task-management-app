@@ -9,6 +9,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "types": ["@chakra-ui/react", "node"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
