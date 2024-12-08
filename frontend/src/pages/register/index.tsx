@@ -99,7 +99,7 @@ const Register = () => {
           disabled={!username || !password || password !== confirmPassword}
           type="submit"
         >
-          Regsiter
+          Register
         </Button>
         <Flex gap={1}>
           <Text fontSize={"xs"} color={"fg.muted"}>
