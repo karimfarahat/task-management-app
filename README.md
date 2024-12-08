@@ -37,7 +37,7 @@ A task management web application designed to help users efficiently manage thei
 
 ## Setup and Installation
 ### Prerequisites
-- Node.js (vXX or later)
+- Node.js
 - MongoDB (if using locally)
 
 ### Installation
@@ -61,7 +61,7 @@ A task management web application designed to help users efficiently manage thei
  - Frontend:
 ```bash
 cd frontend
-npm start
+npm run preview
 ```
  - Backend:
 ```bash
