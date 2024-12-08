@@ -52,7 +52,7 @@ const TaskCard = ({ id, title, description, status }: TaskCardProps) => {
             color={status === "pending" ? "fg" : "white"}
             textDecoration={status === "pending" ? "none" : "line-through"}
             size={"lg"}
-            onClick={() => navigate(`/tasks/${id}`)}
+            onClick={() => navigate(`tasks/${id}`)}
             cursor={"pointer"}
             _hover={{ textDecoration: "underline" }}
           >
