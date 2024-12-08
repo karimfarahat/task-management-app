@@ -1,10 +1,10 @@
 import { CreateTaskPayload, UpdateTaskPayload } from "@/types/tasks";
-import axiosClient from "./axiosClient";
+import { authClient } from "./axiosClient";
 
 const path = "/tasks";
 
 export const getAll = () => {
-  return axiosClient
+  return authClient
     .get(path)
     .then((res) => res.data)
     .catch((err) => {
@@ -14,7 +14,7 @@ export const getAll = () => {
 };
 
 export const get = (id: string) => {
-  return axiosClient
+  return authClient
     .get(`${path}/${id}`)
     .then((res) => res.data)
     .catch((err) => {
@@ -24,7 +24,7 @@ export const get = (id: string) => {
 };
 
 export const create = (payload: CreateTaskPayload) => {
-  return axiosClient
+  return authClient
     .post(path, payload)
     .then((res) => res.data)
     .catch((err) => {
@@ -32,8 +32,9 @@ export const create = (payload: CreateTaskPayload) => {
       throw err;
     });
 };
+
 export const update = ({ _id, ...payload }: UpdateTaskPayload) => {
-  return axiosClient
+  return authClient
     .patch(`${path}/${_id}`, payload)
     .then((res) => res.data)
     .catch((err) => {
@@ -43,7 +44,7 @@ export const update = ({ _id, ...payload }: UpdateTaskPayload) => {
 };
 
 export const remove = (id: string) => {
-  return axiosClient
+  return authClient
     .delete(`${path}/${id}`)
     .then((res) => res.data)
     .catch((err) => {

@@ -11,7 +11,13 @@ export type UpdateTaskPayload = {
   description?: string;
   status?: "pending" | "completed";
 };
+
 export type CreateTaskPayload = {
   title: string;
   description?: string;
+};
+
+export type AuthPayload = {
+  username: string;
+  password: string;
 };

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { TaskSchema } from "./tasks.types";
 
 export const taskSchema = new mongoose.Schema<TaskSchema>({
@@ -14,5 +14,9 @@ export const taskSchema = new mongoose.Schema<TaskSchema>({
   description: {
     type: String,
     required: false,
+  },
+  userId: {
+    type: String,
+    required: true,
   },
 });

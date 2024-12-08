@@ -2,8 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.remove = exports.update = exports.create = exports.get = exports.getAll = void 0;
 const tasks_model_1 = require("./tasks.model");
-const getAll = async () => {
-    return tasks_model_1.Tasks.find();
+const getAll = async (userId) => {
+    return tasks_model_1.Tasks.find({
+        userId: userId,
+    });
 };
 exports.getAll = getAll;
 const get = async (id) => {

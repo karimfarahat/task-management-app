@@ -8,7 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const JWT_SECRET = process.env.JWT_SECRET;
 function verifyToken(req, res, next) {
-    const token = req.header("Authorization");
+    const token = req.header("Authorization")?.split(" ")[1];
     if (!token) {
         res.status(401).json({ error: "Access denied" });
         return;

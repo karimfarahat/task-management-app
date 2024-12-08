@@ -2,17 +2,23 @@ import { Request, Response, NextFunction } from "express";
 import * as tasksService from "./tasks.service";
 
 async function getAll(req: Request, res: Response, next: NextFunction) {
+  const userId = req.userId;
+
+  if (!userId) {
+    res.status(401);
+    return;
+  }
+
   try {
-    const tasks = await tasksService.getAll();
-    if (!tasks) {
-      res.status(404).json({ error: "No tasks found" });
-    }
+    const tasks = await tasksService.getAll(userId);
+
     res.json(tasks);
   } catch (err: any) {
     console.error(`Error while getting all tasks`, err.message);
     next(err);
   }
 }
+
 async function get(req: Request, res: Response, next: NextFunction) {
   try {
     const task = await tasksService.get(req.params.id);
@@ -29,6 +35,7 @@ async function get(req: Request, res: Response, next: NextFunction) {
 async function create(req: Request, res: Response, next: NextFunction) {
   try {
     const { title, description } = req.body;
+    const userId = req.userId;
 
     const validFields = ["title", "description"];
     const invalidFields = Object.keys(req.body).filter(
@@ -48,6 +55,7 @@ async function create(req: Request, res: Response, next: NextFunction) {
     const newTaskData = {
       title,
       description,
+      userId,
     };
 
     const newTask = await tasksService.create(newTaskData);

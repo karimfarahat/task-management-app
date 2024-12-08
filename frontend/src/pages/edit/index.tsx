@@ -149,7 +149,7 @@ const EditTask = () => {
         <Flex gap={3} mt={5} justify={"space-between"}>
           <Button
             size={"sm"}
-            variant={"outline"}
+            variant={"ghost"}
             colorPalette={"teal"}
             onClick={() => navigate("/home")}
           >

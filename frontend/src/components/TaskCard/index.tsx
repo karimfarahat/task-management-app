@@ -47,7 +47,7 @@ const TaskCard = ({ id, title, description, status }: TaskCardProps) => {
       }}
     >
       <VStack w={"full"} align={"flex-start"} borderRadius={"lg"}>
-        <Flex gap={2} w={"full"} justify={"space-between"}>
+        <Flex align={"baseline"} gap={2} w={"full"} justify={"space-between"}>
           <Heading
             color={status === "pending" ? "fg" : "white"}
             textDecoration={status === "pending" ? "none" : "line-through"}

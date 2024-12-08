@@ -1,8 +1,11 @@
 import { Tasks } from "./tasks.model";
 
-const getAll = async () => {
-  return Tasks.find();
+const getAll = async (userId: string) => {
+  return Tasks.find({
+    userId: userId,
+  });
 };
+
 const get = async (id: any) => {
   return Tasks.findOne({ _id: id });
 };

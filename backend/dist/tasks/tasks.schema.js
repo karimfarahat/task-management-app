@@ -19,4 +19,8 @@ exports.taskSchema = new mongoose_1.default.Schema({
         type: String,
         required: false,
     },
+    userId: {
+        type: String,
+        required: true,
+    },
 });

@@ -4,9 +4,9 @@ import verifyToken from "../middleware/authMiddleware";
 
 export const router = express.Router();
 
-router.get("/", tasksController.getAll);
+router.get("/", verifyToken, tasksController.getAll);
 
-router.get("/:id", tasksController.get);
+router.get("/:id", verifyToken, tasksController.get);
 
 router.post("/", verifyToken, tasksController.create);
 

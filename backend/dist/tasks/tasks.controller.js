@@ -40,11 +40,13 @@ exports.update = update;
 exports.remove = remove;
 const tasksService = __importStar(require("./tasks.service"));
 async function getAll(req, res, next) {
+    const userId = req.userId;
+    if (!userId) {
+        res.status(401);
+        return;
+    }
     try {
-        const tasks = await tasksService.getAll();
-        if (!tasks) {
-            res.status(404).json({ error: "No tasks found" });
-        }
+        const tasks = await tasksService.getAll(userId);
         res.json(tasks);
     }
     catch (err) {
@@ -68,6 +70,7 @@ async function get(req, res, next) {
 async function create(req, res, next) {
     try {
         const { title, description } = req.body;
+        const userId = req.userId;
         const validFields = ["title", "description"];
         const invalidFields = Object.keys(req.body).filter((key) => !validFields.includes(key));
         if (invalidFields.length > 0) {
@@ -81,6 +84,7 @@ async function create(req, res, next) {
         const newTaskData = {
             title,
             description,
+            userId,
         };
         const newTask = await tasksService.create(newTaskData);
         res.status(201).json(newTask);

@@ -1,30 +1,23 @@
-import { get, update } from "@/api/tasks";
+import { register } from "@/api/users";
 import Page from "@/components/Page";
 import Panel from "@/components/Panel";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { toaster } from "@/components/ui/toaster";
-import { Task } from "@/types/tasks";
-import { Flex, Input, Link, Skeleton, Text, VStack } from "@chakra-ui/react";
-import {
-  ChangeEvent,
-  // FormEvent,
-  KeyboardEvent,
-  useEffect,
-  useState,
-} from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { Flex, Input, Link, Text, VStack } from "@chakra-ui/react";
+import { ChangeEvent, FormEvent, KeyboardEvent, useState } from "react";
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Register = () => {
-  const { id } = useParams();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+  const handleChangeusername = (e: ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
   };
 
   const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,54 +27,29 @@ const Register = () => {
     setConfirmPassword(e.target.value);
   };
 
-  // const handleSubmit = (e: FormEvent) => {
-  //   if (id) {
-  //     e.preventDefault();
-  //     taskUpdateMutation.mutate({
-  //       _id: id,
-  //       email: email,
-  //       password: password,
-  //     });
-  //   }
-  // };
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    registerMutation.mutate({
+      username: username,
+      password: password,
+    });
+  };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      // handleSubmit(e);
+      handleSubmit(e);
     }
   };
 
-  const { data, isLoading, isSuccess } = useQuery({
-    queryKey: ["task", id],
-    queryFn: ({ queryKey }) => {
-      const [, taskId] = queryKey;
-      if (!taskId) throw new Error("Task ID is required");
-      return get(taskId);
-    },
-    enabled: !!id,
-  });
-
-  const task: Task = { ...data };
-
-  useEffect(() => {
-    if (isSuccess) {
-      // setTitle(task.title);
-      // setDescription(task.description ?? "");
-    }
-  }, [isSuccess, task.title, task.description]);
-
-  const queryClient = useQueryClient();
-
-  const taskUpdateMutation = useMutation({
-    mutationFn: update,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["task", id] });
-
+  const registerMutation = useMutation({
+    mutationFn: register,
+    onSuccess: (data: { token: string }) => {
       toaster.create({
-        title: `Task updated successfully`,
+        title: "Register successful",
         type: "success",
       });
-      navigate("/home");
+      Cookies.set("authToken", data.token);
+      navigate("/login");
     },
     onError: (error: Error) => {
       toaster.create({
@@ -95,47 +63,40 @@ const Register = () => {
     <Page w={"1/4"} title={"Register"}>
       <Panel display={"flex"} flexDir={"column"} gap={5} alignItems={"center"}>
         <VStack gap={5} as={"form"} align={"flex-start"}>
-          {!isLoading ? (
-            <>
-              <Field
-                label="Email"
-                // invalid={!email}
-                errorText="This field is required"
-              >
-                <Input
-                  value={email}
-                  onChange={handleChangeEmail}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Enter Username"
-                />
-              </Field>
-              <Field label="Password">
-                <Input
-                  value={password}
-                  onChange={handleChangePassword}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Enter password"
-                />
-              </Field>
-              <Field label="Confirm Password">
-                <Input
-                  value={confirmPassword}
-                  onChange={handleChangeConfirmPassword}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Confirm Password"
-                />
-              </Field>
-            </>
-          ) : (
-            <Skeleton width={"full"} h={"full"} />
-          )}
+          <Field label="Username" errorText="This field is required">
+            <Input
+              value={username}
+              onChange={handleChangeusername}
+              onKeyDown={handleKeyDown}
+              placeholder="Enter Username"
+            />
+          </Field>
+          <Field label="Password">
+            <Input
+              value={password}
+              onChange={handleChangePassword}
+              onKeyDown={handleKeyDown}
+              type="password"
+              placeholder="Enter password"
+            />
+          </Field>
+          <Field label="Confirm Password">
+            <Input
+              value={confirmPassword}
+              type="password"
+              onChange={handleChangeConfirmPassword}
+              onKeyDown={handleKeyDown}
+              placeholder="Confirm Password"
+            />
+          </Field>
         </VStack>
 
         <Button
           size={"sm"}
           variant={"solid"}
           colorPalette={"teal"}
-          // onClick={handleSubmit}
+          onClick={handleSubmit}
+          disabled={!username || !password || password !== confirmPassword}
           type="submit"
         >
           Regsiter

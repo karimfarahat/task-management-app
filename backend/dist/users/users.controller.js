@@ -38,6 +38,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.register = register;
 exports.login = login;
+exports.get = get;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -45,6 +46,23 @@ const users_model_1 = require("./users.model");
 const usersService = __importStar(require("./users.service"));
 dotenv_1.default.config();
 const JWT_SECRET = process.env.JWT_SECRET;
+async function get(req, res, next) {
+    try {
+        if (!req.userId) {
+            res.status(401).json({ error: "Unauthorized" });
+            return;
+        }
+        const user = await usersService.getById(req.userId);
+        if (!user) {
+            res.status(404).json({ error: "User not found" });
+        }
+        res.json({ username: user?.username, userId: user?._id });
+    }
+    catch (err) {
+        console.error(`Error while getting the user`, err.message);
+        next(err);
+    }
+}
 async function register(req, res) {
     try {
         const { username, password } = req.body;
@@ -66,6 +84,9 @@ async function register(req, res) {
 async function login(req, res) {
     try {
         const { username, password } = req.body;
+        if (!username || !password) {
+            res.status(403).json({ error: "Forbidden" });
+        }
         const user = await usersService.get(username);
         if (!user) {
             res.status(401).json({ error: "Authentication failed" });

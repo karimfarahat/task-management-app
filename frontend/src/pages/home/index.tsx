@@ -4,7 +4,7 @@ import Page from "@/components/Page";
 import Panel from "@/components/Panel";
 import { Task } from "@/types/tasks";
 import { useQuery } from "react-query";
-import { Grid, Text } from "@chakra-ui/react";
+import { Center, Grid } from "@chakra-ui/react";
 
 const Home = () => {
   const { data, isLoading, isSuccess } = useQuery({
@@ -16,9 +16,9 @@ const Home = () => {
     !isLoading && (
       <Page canCreateTask width={"1/2"} title="Your current tasks">
         <Panel>
-          <Grid templateColumns="repeat(3, 1fr)" gap="3">
-            {isSuccess ? (
-              data.map((task: Task) => {
+          {isSuccess && data.length > 0 ? (
+            <Grid templateColumns="repeat(3, 1fr)" gap="3">
+              {data.map((task: Task) => {
                 return (
                   <TaskCard
                     key={task._id}
@@ -28,11 +28,11 @@ const Home = () => {
                     status={task.status}
                   />
                 );
-              })
-            ) : (
-              <Text>No data to show</Text>
-            )}
-          </Grid>
+              })}
+            </Grid>
+          ) : (
+            <Center>No tasks to show</Center>
+          )}
         </Panel>
       </Page>
     )

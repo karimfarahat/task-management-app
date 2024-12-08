@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -7,6 +7,23 @@ import * as usersService from "./users.service";
 
 dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET!;
+
+async function get(req: Request, res: Response, next: NextFunction) {
+  try {
+    if (!req.userId) {
+      res.status(401).json({ error: "Unauthorized" });
+      return;
+    }
+    const user = await usersService.getById(req.userId);
+    if (!user) {
+      res.status(404).json({ error: "User not found" });
+    }
+    res.json({ username: user?.username, userId: user?._id });
+  } catch (err: any) {
+    console.error(`Error while getting the user`, err.message);
+    next(err);
+  }
+}
 
 async function register(req: Request, res: Response) {
   try {
@@ -35,12 +52,18 @@ async function login(req: Request, res: Response) {
   try {
     const { username, password } = req.body;
 
+    if (!username || !password) {
+      res.status(403).json({ error: "Forbidden" });
+    }
+
     const user = await usersService.get(username);
     if (!user) {
       res.status(401).json({ error: "Authentication failed" });
     }
-
-    const passwordMatch = await bcrypt.compare(password, user?.password!);
+    const passwordMatch = await bcrypt.compare(
+      password,
+      user?.password as string
+    );
     if (!passwordMatch) {
       res.status(401).json({ error: "Authentication failed" });
     }
@@ -56,4 +79,4 @@ async function login(req: Request, res: Response) {
   }
 }
 
-export { register, login };
+export { register, login, get };
