@@ -115,15 +115,16 @@ const Register = () => {
           >
             Register
           </Button>
-          <Flex gap={1}>
+          <Flex align={"center"} justify={"center"} gap={1}>
             <Text fontSize={"xs"} color={"fg.muted"}>
               Already have an account?
             </Text>
             <Button
+              _hover={{ textDecoration: "underline" }}
               colorPalette={"teal"}
-              fontSize={"xs"}
+              fontSize={"x-small"}
               variant={"plain"}
-             onClick={()=> (navigate("/login"))}
+              onClick={() => navigate("/login")}
             >
               Login
             </Button>

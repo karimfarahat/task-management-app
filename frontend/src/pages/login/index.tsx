@@ -2,7 +2,7 @@ import Page from "@/components/Page";
 import Panel from "@/components/Panel";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { Center, Flex, Input,  Text, VStack } from "@chakra-ui/react";
+import { Center, Flex, Input, Text, VStack } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, KeyboardEvent, useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -101,14 +101,15 @@ const Login = () => {
           >
             Login
           </Button>
-          <Flex gap={1}>
+          <Flex align={"center"} justify={"center"} gap={1}>
             <Text fontSize={"xs"} color={"fg.muted"}>
               Don't have an account?
             </Text>
             <Button
               colorPalette={"teal"}
-              fontSize={"xs"}
+              fontSize={"x-small"}
               variant={"plain"}
+              _hover={{ textDecoration: "underline" }}
               onClick={() => navigate("/register")}
             >
               Register
