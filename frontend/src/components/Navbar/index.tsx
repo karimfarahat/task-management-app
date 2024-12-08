@@ -1,7 +1,11 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { Button } from "../ui/button";
+import { useLocation } from "react-router-dom";
 
 const NavBar = () => {
+  const { pathname } = useLocation();
+  const isLogin = pathname.includes("/login");
+  const isRegister = pathname.includes("/register");
   return (
     <Flex
       position="sticky"
@@ -16,10 +20,14 @@ const NavBar = () => {
       justify={"space-between"}
       boxShadow="0 2px 4px rgba(0,0,0,0.1)"
     >
-      <Text>Hello User</Text>
-      <Button variant={"ghost"} colorPalette={"red"}>
-        Logout
-      </Button>
+      {!isLogin && !isRegister && (
+        <>
+          <Text>Hello User</Text>
+          <Button variant={"ghost"} colorPalette={"red"}>
+            Logout
+          </Button>
+        </>
+      )}
     </Flex>
   );
 };
