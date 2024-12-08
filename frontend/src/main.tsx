@@ -18,30 +18,30 @@ import { Toaster } from "./components/ui/toaster";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/home",
     element: <Layout />,
     children: [
       {
-        index: true,
-        element: <Navigate to="/home" replace />,
-      },
-      {
-        path: "/home",
+        path: "/home/",
         element: <Home />,
       },
       {
-        path: "/tasks/:id",
+        path: "/home/tasks/:id",
         element: <TaskPage />,
       },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
-      },
     ],
+  },
+  {
+    path: "/",
+    element: <Navigate to="/login" />,
   },
 ]);
 
@@ -52,6 +52,7 @@ const queryClient = new QueryClient({
     },
   },
 });
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChakraProvider value={defaultSystem}>

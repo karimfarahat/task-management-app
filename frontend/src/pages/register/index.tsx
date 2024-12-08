@@ -4,7 +4,7 @@ import Panel from "@/components/Panel";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { toaster } from "@/components/ui/toaster";
-import { Flex, Input, Link, Text, VStack } from "@chakra-ui/react";
+import { Center, Flex, Input, Link, Text, VStack } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, KeyboardEvent, useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -60,62 +60,77 @@ const Register = () => {
   });
 
   return (
-    <Page w={"1/4"} title={"Register"}>
-      <Panel display={"flex"} flexDir={"column"} gap={5} alignItems={"center"}>
-        <VStack gap={5} as={"form"} align={"flex-start"}>
-          <Field label="Username" errorText="This field is required">
-            <Input
-              value={username}
-              onChange={handleChangeusername}
-              onKeyDown={handleKeyDown}
-              placeholder="Enter Username"
-            />
-          </Field>
-          <Field label="Password">
-            <Input
-              value={password}
-              onChange={handleChangePassword}
-              onKeyDown={handleKeyDown}
-              type="password"
-              placeholder="Enter password"
-            />
-          </Field>
-          <Field label="Confirm Password">
-            <Input
-              value={confirmPassword}
-              type="password"
-              onChange={handleChangeConfirmPassword}
-              onKeyDown={handleKeyDown}
-              placeholder="Confirm Password"
-            />
-          </Field>
-        </VStack>
-
-        <Button
-          size={"sm"}
-          variant={"solid"}
-          colorPalette={"teal"}
-          onClick={handleSubmit}
-          disabled={!username || !password || password !== confirmPassword}
-          type="submit"
+    <Center
+      px={20}
+      py={8}
+      pos={"fixed"}
+      mt={16}
+      h={"full"}
+      w={"full"}
+      bgColor={"gray.100"}
+    >
+      <Page w={"1/4"} title={"Register"}>
+        <Panel
+          display={"flex"}
+          flexDir={"column"}
+          gap={5}
+          alignItems={"center"}
         >
-          Register
-        </Button>
-        <Flex gap={1}>
-          <Text fontSize={"xs"} color={"fg.muted"}>
-            Already have an account?
-          </Text>
-          <Link
-            color={"teal"}
-            fontSize={"xs"}
-            variant={"underline"}
-            href={"login"}
+          <VStack gap={5} as={"form"} align={"flex-start"}>
+            <Field label="Username" errorText="This field is required">
+              <Input
+                value={username}
+                onChange={handleChangeusername}
+                onKeyDown={handleKeyDown}
+                placeholder="Enter Username"
+              />
+            </Field>
+            <Field label="Password">
+              <Input
+                value={password}
+                onChange={handleChangePassword}
+                onKeyDown={handleKeyDown}
+                type="password"
+                placeholder="Enter password"
+              />
+            </Field>
+            <Field label="Confirm Password">
+              <Input
+                value={confirmPassword}
+                type="password"
+                onChange={handleChangeConfirmPassword}
+                onKeyDown={handleKeyDown}
+                placeholder="Confirm Password"
+              />
+            </Field>
+          </VStack>
+
+          <Button
+            size={"sm"}
+            variant={"solid"}
+            colorPalette={"teal"}
+            onClick={handleSubmit}
+            disabled={!username || !password || password !== confirmPassword}
+            type="submit"
           >
-            Login
-          </Link>
-        </Flex>
-      </Panel>
-    </Page>
+            Register
+          </Button>
+          <Flex gap={1}>
+            <Text fontSize={"xs"} color={"fg.muted"}>
+              Already have an account?
+            </Text>
+            <Link
+              color={"teal"}
+              fontSize={"xs"}
+              variant={"underline"}
+              href={"login"}
+            >
+              Login
+            </Link>
+          </Flex>
+        </Panel>
+      </Page>
+    </Center>
   );
 };
 
