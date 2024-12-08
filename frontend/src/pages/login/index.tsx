@@ -2,7 +2,7 @@ import Page from "@/components/Page";
 import Panel from "@/components/Panel";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { Center, Flex, Input, Link, Text, VStack } from "@chakra-ui/react";
+import { Center, Flex, Input,  Text, VStack } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, KeyboardEvent, useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -105,14 +105,14 @@ const Login = () => {
             <Text fontSize={"xs"} color={"fg.muted"}>
               Don't have an account?
             </Text>
-            <Link
-              color={"teal"}
+            <Button
+              colorPalette={"teal"}
               fontSize={"xs"}
-              variant={"underline"}
-              href={"register"}
+              variant={"plain"}
+              onClick={() => navigate("/register")}
             >
               Register
-            </Link>
+            </Button>
           </Flex>
         </Panel>
       </Page>

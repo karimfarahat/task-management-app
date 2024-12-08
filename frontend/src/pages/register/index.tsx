@@ -4,7 +4,7 @@ import Panel from "@/components/Panel";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { toaster } from "@/components/ui/toaster";
-import { Center, Flex, Input, Link, Text, VStack } from "@chakra-ui/react";
+import { Center, Flex, Input, Text, VStack } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, KeyboardEvent, useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -119,14 +119,14 @@ const Register = () => {
             <Text fontSize={"xs"} color={"fg.muted"}>
               Already have an account?
             </Text>
-            <Link
-              color={"teal"}
+            <Button
+              colorPalette={"teal"}
               fontSize={"xs"}
-              variant={"underline"}
-              href={"login"}
+              variant={"plain"}
+             onClick={()=> (navigate("/login"))}
             >
               Login
-            </Link>
+            </Button>
           </Flex>
         </Panel>
       </Page>
