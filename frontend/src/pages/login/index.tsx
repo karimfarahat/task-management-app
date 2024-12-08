@@ -5,7 +5,7 @@ import { Field } from "@/components/ui/field";
 import { Center, Flex, Input, Link, Text, VStack } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, KeyboardEvent, useState } from "react";
 import { useMutation } from "react-query";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { login } from "@/api/users";
 import { toaster } from "@/components/ui/toaster";
@@ -105,8 +105,12 @@ const Login = () => {
             <Text fontSize={"xs"} color={"fg.muted"}>
               Don't have an account?
             </Text>
-            <Link color={"teal"} fontSize={"xs"} variant={"underline"}>
-              <Navigate to={"/register"} />
+            <Link
+              color={"teal"}
+              fontSize={"xs"}
+              variant={"underline"}
+              href={"register"}
+            >
               Register
             </Link>
           </Flex>
