@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const db_1 = __importDefault(require("./config/db"));
 const tasks_1 = require("./tasks");
 const cors_1 = __importDefault(require("cors"));
+const users_1 = require("./users");
 const app = (0, express_1.default)();
 exports.app = app;
 (0, db_1.default)();
@@ -16,3 +17,4 @@ app.use((0, cors_1.default)({
     origin: "http://localhost:5173",
 }));
 app.use("/tasks", tasks_1.tasks);
+app.use("/users", users_1.users);

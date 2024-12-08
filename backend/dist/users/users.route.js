@@ -38,11 +38,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 const express_1 = __importDefault(require("express"));
-const tasksController = __importStar(require("./tasks.controller"));
-const authMiddleware_1 = __importDefault(require("../middleware/authMiddleware"));
+const usersController = __importStar(require("./users.controller"));
 exports.router = express_1.default.Router();
-exports.router.get("/", tasksController.getAll);
-exports.router.get("/:id", tasksController.get);
-exports.router.post("/", authMiddleware_1.default, tasksController.create);
-exports.router.patch("/:id", authMiddleware_1.default, tasksController.update);
-exports.router.delete("/:id", authMiddleware_1.default, tasksController.remove);
+exports.default = exports.router;
+exports.router.post("/register", usersController.register);
+exports.router.post("/login", usersController.login);

@@ -106,7 +106,7 @@ const Register = () => {
                   value={email}
                   onChange={handleChangeEmail}
                   onKeyDown={handleKeyDown}
-                  placeholder="Enter the task's title"
+                  placeholder="Enter Username"
                 />
               </Field>
               <Field label="Password">
@@ -114,7 +114,7 @@ const Register = () => {
                   value={password}
                   onChange={handleChangePassword}
                   onKeyDown={handleKeyDown}
-                  placeholder="Enter the task's description"
+                  placeholder="Enter password"
                 />
               </Field>
               <Field label="Confirm Password">
@@ -122,7 +122,7 @@ const Register = () => {
                   value={confirmPassword}
                   onChange={handleChangeConfirmPassword}
                   onKeyDown={handleKeyDown}
-                  placeholder="Enter the task's description"
+                  placeholder="Confirm Password"
                 />
               </Field>
             </>
