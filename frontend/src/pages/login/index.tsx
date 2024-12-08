@@ -98,6 +98,7 @@ const Login = () => {
             onClick={handleSubmit}
             type="submit"
             disabled={!username || !password}
+            loading={loginMutation.isLoading}
           >
             Login
           </Button>

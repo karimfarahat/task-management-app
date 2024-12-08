@@ -112,6 +112,7 @@ const Register = () => {
             onClick={handleSubmit}
             disabled={!username || !password || password !== confirmPassword}
             type="submit"
+            loading={registerMutation.isLoading}
           >
             Register
           </Button>
