@@ -5,7 +5,9 @@ import {
   DialogCloseTrigger,
   DialogContent,
   DialogFooter,
+  DialogHeader,
   DialogRoot,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { FormEvent } from "react";
@@ -27,6 +29,9 @@ const DeleteTaskDialog = ({
         </Button>
       </DialogTrigger>
       <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Delete Task</DialogTitle>
+        </DialogHeader>
         <DialogBody>
           <p>Are you sure you want to delete this task?</p>
         </DialogBody>
